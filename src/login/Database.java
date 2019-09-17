@@ -39,7 +39,7 @@ public class Database
         return user_map;
     }
     
-    public void saveUser(User user) throws IOException {
+    public void saveUser (User user) throws IOException {
         PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("fake-people-db.txt")));
 
         if (user != null) {
