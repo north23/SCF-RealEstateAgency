@@ -28,4 +28,20 @@ public class User {
 
         return sb.toString();
     }
+	    
+	    private String genUserID() {
+	    	String id;
+	    	
+	    	if(first_name.length() < 2 || last_name.length() < 2 || email.length() < 5)
+			{
+				 id = "Invalid";
+			}
+			else
+			{
+				id = first_name.substring(0, 3).toUpperCase() + last_name.substring(0, 3).toUpperCase()
+					 + email.substring(0, 3).toUpperCase();
+			}
+	    	return id;
+		}
+	
 }
