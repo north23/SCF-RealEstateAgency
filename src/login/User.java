@@ -2,7 +2,7 @@ package login;
 
 public class User {
 	
-	    public String first_name, last_name, email, suburb, username, password; 
+	    public String first_name, last_name, email, suburb, username, password, uniqueId; 
 
 	    public User(String[] parts)
 	    {
@@ -12,6 +12,7 @@ public class User {
 	        suburb = parts[3];
 	        username = parts[4];
 	        password = parts[5];
+	        uniqueId = parts[6];
 	    }
 	    
 	    public boolean doesPasswordEqual(String password) {
