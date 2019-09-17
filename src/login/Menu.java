@@ -1,7 +1,11 @@
 package login;
 import java.util.Scanner;
+
+import app.Customers;
+
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,14 +20,14 @@ public class Menu {
 	private static final String String = null;
 	private Scanner console = new Scanner(System.in);
 	Map<String, User> user_map = Database.load();
-		
-	public void run() {
+	
+	private Database database = new Database();
+
+	public void run() throws IOException {
 		final int MENU_LENGTH = 1;
 		String input = "";
 		printFirstLoginPage();
-		do {
-			
-			
+		do {						
 			input = console.nextLine().toUpperCase();
 			if(input.length() != MENU_LENGTH) {
 				System.out.println("Error - selection must be one Interger/Characters");
@@ -55,7 +59,7 @@ public class Menu {
 		System.out.printf("2.Customer\n ");
 	}
 	
-	private void printSecondLoginPage() {
+	private void printSecondLoginPage() throws IOException {
 		
 		System.out.printf("1.Register\n");
 		System.out.printf("2.Existing User\n");
@@ -106,32 +110,34 @@ public class Menu {
 	                System.out.println("Incorrect password");
 	    }
 	
-	private void registerUser() {		
+	private void registerUser() throws IOException {		
 		
-		Scanner keyboard = new Scanner(System.in);
+		String first_name = "north", last_name = "dec" , email = "sdsdwed@hotmail.com", suburb = "vic", username = "north123", password = "pass123";
 		
-		System.out.println("FirstName :" + "\t");				
-		String first_name = keyboard.nextLine();
+//		Scanner keyboard = new Scanner(System.in);		
+//		System.out.println("FirstName :" + "\t");				
+//		String first_name = keyboard.nextLine();
+//		
+//		System.out.println("LastName :" + "\t");	
+//		String last_name = keyboard.nextLine();
+//		
+//		System.out.println("Email :" + "\t");	
+//		String email = keyboard.nextLine();
+//		
+//		System.out.println("Suburb :" + "\t");	
+//		String suburb = keyboard.nextLine();
+//		
+//		System.out.println("Username :" + "\t");	
+//		String username = keyboard.nextLine();
+//		
+//		System.out.println("Password :" + "\t");	
+//		String password = keyboard.nextLine();
 		
-		System.out.println("LastName :" + "\t");	
-		String last_name = keyboard.nextLine();
-		
-		System.out.println("Email :" + "\t");	
-		String email = keyboard.nextLine();
-		
-		System.out.println("Suburb :" + "\t");	
-		String suburb = keyboard.nextLine();
-		
-		System.out.println("Username :" + "\t");	
-		String username = keyboard.nextLine();
-		
-		System.out.println("Password :" + "\t");	
-		String password = keyboard.nextLine();
 		
 		String[] information = {first_name, last_name, email, suburb, username, password};
 		User u = new User(information);
 		
-		user_map.put(username, u);
+		database.saveUser(u);
 		
 		
 	}
