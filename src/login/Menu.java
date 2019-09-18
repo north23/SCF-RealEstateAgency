@@ -83,7 +83,7 @@ public class Menu {
 			registerCustomer();
 			break;
 		case "2":
-			existingUser();
+//			loadUser();
 			break;
 		}
 	}
@@ -92,32 +92,32 @@ public class Menu {
 
 	}
 
-	private void existingUser() {
-
-		Map<String, User> user_map = Database.load();
-
-		
-		String username, password;
-
-		System.out.println("Enter username");
-		username = keyboard.nextLine();
-
-		if (!user_map.containsKey(username)) {
-			System.out.println("That username does not exist.");
-			System.exit(0);
-		}
-
-		System.out.println("Enter password");
-		password = keyboard.nextLine();
-
-		User un = user_map.get(username);
-
-		if ((un.password).equals(password)) {
-			System.out.println("Successfully logged in.");
-			System.out.println("Welcome " + un.first_name + " " + un.last_name);
-		} else
-			System.out.println("Incorrect password");
-	}
+//	private void existingUser() {
+//
+//		Map<String, User> user_map = Database.load();
+//
+//		
+//		String username, password;
+//
+//		System.out.println("Enter username");
+//		username = keyboard.nextLine();
+//
+//		if (!user_map.containsKey(username)) {
+//			System.out.println("That username does not exist.");
+//			System.exit(0);
+//		}
+//
+//		System.out.println("Enter password");
+//		password = keyboard.nextLine();
+//
+//		User un = user_map.get(username);
+//
+//		if ((un.password).equals(password)) {
+//			System.out.println("Successfully logged in.");
+//			System.out.println("Welcome " + un.first_name + " " + un.last_name);
+//		} else
+//			System.out.println("Incorrect password");
+//	}
 
 	private void registerEmployee() throws IOException {		
 		

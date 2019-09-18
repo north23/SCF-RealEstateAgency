@@ -1,6 +1,6 @@
 package login;
 
-import app.Customers;
+import app.Customer;
 import exceptions.CorruptedFileException;
 
 import java.io.*;
@@ -38,6 +38,7 @@ public class Database {
 
     public User loadUser(String userType, String username) throws IOException, CorruptedFileException {
         String fileName;
+        
         if (userType.equals("customer")) {
             fileName = "customer.txt";
         } else {
@@ -53,8 +54,9 @@ public class Database {
 
             user = createUser(line, userType);
         }
-        if (br.readLine() == null)
-            throw new CorruptedFileException("The file is empty. No Booking data was loaded.");
+        if (br.readLine() == null) 
+			throw new CorruptedFileException("The file is empty. No User data was loaded.");
+		
         br.close();
         return user;
     }
@@ -62,12 +64,17 @@ public class Database {
     private User createUser(String line, String userType) {
         StringTokenizer inReader = new StringTokenizer(line, ",");
 
+        String firstname = inReader.nextToken();      
+        String lastname = inReader.nextToken();
+        String email = inReader.nextToken();       
+        String suburb = inReader.nextToken();
         String username = inReader.nextToken();
         String password = inReader.nextToken();
-        String uniqueId = inReader.nextToken();
+        String type = inReader.nextToken();
 
         if (userType.equals("customer")) {
-            return new Customer();
+        	String[] parts = {firstname,lastname,email,suburb,username,password};
+            return new Customer(parts,type);
         } else {
             return null;
         }

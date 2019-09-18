@@ -11,7 +11,7 @@ public class User {
         suburb = parts[3];
         username = parts[4];
         password = parts[5];
-        uniqueId = parts[6];
+        uniqueId = genUserId();
     }
 
     public boolean doesPasswordEqual(String password) {
@@ -20,16 +20,25 @@ public class User {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(username)
+        sb.append(first_name)
+                .append(",")
+                .append(last_name)
+                .append(",")
+                .append(email)
+        		.append(",")
+        		.append(suburb)
+        		.append(",")
+                .append(username)
                 .append(",")
                 .append(password)
                 .append(",")
                 .append(uniqueId);
+        
 
         return sb.toString();
     }
 
-    private String genUserID() {
+    private String genUserId() {
         String id;
 
         if (first_name.length() < 2 || last_name.length() < 2 || email.length() < 5) {
