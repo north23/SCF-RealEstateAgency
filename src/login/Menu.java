@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import app.Customer;
 import app.Customer;
+import exceptions.CorruptedFileException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,113 +18,86 @@ import java.util.List;
 
 public class Menu {
 
-	private static final String String = null;
-	private Scanner console = new Scanner(System.in);
-//	Map<String, User> user_map = Database.load();
-	Scanner keyboard = new Scanner(System.in);
+    private static final String String = null;
+    private Scanner console = new Scanner(System.in);
+    //	Map<String, User> user_map = Database.load();
+    Scanner keyboard = new Scanner(System.in);
 
-	private Database database = new Database();
+    private Database database = new Database();
 
-	public void run() throws IOException {
-		final int MENU_LENGTH = 1;
-		String input = "";
-		printFirstLoginPage();
-		do {
-			input = console.nextLine().toUpperCase();
-			if (input.length() != MENU_LENGTH) {
-				System.out.println("Error - selection must be one Interger/Characters");
-			} else {
-				switch (input) {
-				case "1":
-					printCustomerLoginPage();
-					break;
-				case "2":
-					printEmployeeLoginPage();
-					break;
-				case "X":
-					onExit();
-				}
-			}
+    public void run() throws IOException {
+        final int MENU_LENGTH = 1;
+        String input = "";
+        printFirstLoginPage();
+        do {
+            input = console.nextLine().toUpperCase();
+            if (input.length() != MENU_LENGTH) {
+                System.out.println("Error - selection must be one Interger/Characters");
+            } else {
+                switch (input) {
+                    case "1":
+                        printEmployeeLoginPage();
+                        break;
+                    case "2":
+                        printCustomerLoginPage();
+                        break;
+                    case "X":
+                        onExit();
+                }
+            }
 
-		} while (!input.equals("X"));
+        } while (!input.equals("X"));
 
-	}
+    }
 
-	private void printFirstLoginPage() {
+    private void printFirstLoginPage() {
 
-		System.out.printf("1.Employee\n");
-		System.out.printf("2.Customer\n ");
-	}
+        System.out.printf("1.Employee\n");
+        System.out.printf("2.Customer\n ");
+    }
 
-	private void printEmployeeLoginPage() throws IOException {
-		System.out.printf("1.Register\n");
-		System.out.printf("2.Existing User\n");
+    private void printEmployeeLoginPage() throws IOException {
+        System.out.printf("1.Register\n");
+        System.out.printf("2.Existing User\n");
 
-		String input = "";
-		input = console.nextLine().toUpperCase();
-		switch (input) {
-		case "1":
-			registerEmployee();
-			break;
-		case "2":
-			existingUser();
-			break;
-		}
-	}
-		
-	private void printCustomerLoginPage() throws IOException {
+        String input = "";
+        input = console.nextLine().toUpperCase();
+        switch (input) {
+            case "1":
+                registerEmployee();
+                break;
+            case "2":
+                loginEmployee();
+                break;
+        }
+    }
 
-		System.out.printf("1.Register\n");
-		System.out.printf("2.Existing User\n");
+    private void printCustomerLoginPage() throws IOException {
 
-		String input = "";
-		input = console.nextLine().toUpperCase();
-		switch (input) {
-		case "1":
-			registerCustomer();
-			break;
-		case "2":
-//			loadUser();
-			break;
-		}
-	}
+        System.out.printf("1.Register\n");
+        System.out.printf("2.Existing User\n");
 
-	private void onExit() {
+        String input = "";
+        input = console.nextLine().toUpperCase();
+        switch (input) {
+            case "1":
+                registerCustomer();
+                break;
+            case "2":
+                loginCustomer();
+                break;
+        }
+    }
 
-	}
+    private void onExit() {
 
-//	private void existingUser() {
-//
-//		Map<String, User> user_map = Database.load();
-//
-//		
-//		String username, password;
-//
-//		System.out.println("Enter username");
-//		username = keyboard.nextLine();
-//
-//		if (!user_map.containsKey(username)) {
-//			System.out.println("That username does not exist.");
-//			System.exit(0);
-//		}
-//
-//		System.out.println("Enter password");
-//		password = keyboard.nextLine();
-//
-//		User un = user_map.get(username);
-//
-//		if ((un.password).equals(password)) {
-//			System.out.println("Successfully logged in.");
-//			System.out.println("Welcome " + un.first_name + " " + un.last_name);
-//		} else
-//			System.out.println("Incorrect password");
-//	}
+    }
 
-	private void registerEmployee() throws IOException {		
-		
-		String first_name = "north", last_name = "dec" , email = "sdsdwed@hotmail.com", suburb = "vic", username = "north123", password = "pass123";
+    private void registerEmployee() throws IOException {
+
+        String first_name = "north", last_name = "dec", email = "sdsdwed@hotmail.com", suburb = "vic", username = "north123", password = "pass123";
 //		customer.register();
-		
+
 //		Scanner keyboard = new Scanner(System.in);		
 //		System.out.println("FirstName :" + "\t");				
 //		String first_name = keyboard.nextLine();
@@ -142,52 +116,87 @@ public class Menu {
 //		
 //		System.out.println("Password :" + "\t");	
 //		String password = keyboard.nextLine();
-		
-		
-		
-		String[] information = {first_name, last_name, email, suburb, username, password};
-		User u = new User(information);
-		
-		database.saveUser(u);
-			
-	}
 
-	public void registerCustomer() throws IOException {
-		
-		Database database = new Database();		
-		
-		System.out.println("Please enter your first name: ");		
-		String firstName = keyboard.nextLine().toUpperCase();
-		
-		System.out.println("Please enter your last name: ");
-		String lastName = keyboard.nextLine().toUpperCase();
-		
-		System.out.println("Please specify if you are a vendor, landlord, buyer or tenant: ");
-		String type = keyboard.nextLine().toUpperCase();
-		
-		System.out.println("Email :" + "\t");	
-		String email = keyboard.nextLine();
-		
-		System.out.println("Suburb :" + "\t");	
-		String suburb = keyboard.nextLine();
-		
-		System.out.println("Username :" + "\t");	
-		String username = keyboard.nextLine();
-		
-		System.out.println("Password :" + "\t");	
-		String password = keyboard.nextLine();
-		
-		if (type.equals("vendor")) {
 
-		} else if (type.equals("landlord")) {
+        String[] information = {first_name, last_name, email, suburb, username, password};
+        User u = new User(information);
 
-		} else if (type.equals("buyer")) {
+        try {
+            database.saveUser(u);
+            System.out.println("Registration complete");
+        } catch (IOException ex) {
+            System.out.println("Unable to save to file");
+        }
+    }
 
-		} else if (type.equals("tenant")) {
+    private void loginEmployee() {
+        String username, password;
+        System.out.println("Username:");
+        username = console.nextLine();
+        System.out.println("Password:");
+        password = console.nextLine();
 
-		}		
-		String[] parts = {firstName, lastName, email,  suburb,  username, password};
-		User user = new Customer(parts, type);
-		database.saveUser(user);		
-	}
+        try {
+            database.loadUser("employee", username, password);
+            System.out.println("Login complete");
+        } catch (IOException ex) {
+            System.out.println("Unable to load data from file");
+        }
+    }
+
+    public void registerCustomer() throws IOException {
+        String firstName = "north", lastName = "dec", email = "sdsdwed@hotmail.com", suburb = "vic", username = "north123", password = "pass123";
+        String type = "vendor";
+
+        Database database = new Database();
+
+//		System.out.println("Please enter your first name: ");
+//		String firstName = keyboard.nextLine().toUpperCase();
+//
+//		System.out.println("Please enter your last name: ");
+//		String lastName = keyboard.nextLine().toUpperCase();
+//
+//		System.out.println("Please specify if you are a vendor, landlord, buyer or tenant: ");
+//		String type = keyboard.nextLine().toUpperCase();
+//
+//		System.out.println("Email :" + "\t");
+//		String email = keyboard.nextLine();
+//
+//		System.out.println("Suburb :" + "\t");
+//		String suburb = keyboard.nextLine();
+//
+//		System.out.println("Username :" + "\t");
+//		String username = keyboard.nextLine();
+//
+//		System.out.println("Password :" + "\t");
+//		String password = keyboard.nextLine();
+//
+//		if (type.equals("vendor")) {
+//
+//		} else if (type.equals("landlord")) {
+//
+//		} else if (type.equals("buyer")) {
+//
+//		} else if (type.equals("tenant")) {
+//
+//		}
+        String[] parts = {firstName, lastName, email, suburb, username, password};
+        User user = new Customer(parts, type);
+        database.saveUser(user);
+    }
+
+    private void loginCustomer() {
+        String username, password;
+        System.out.println("Username:");
+        username = console.nextLine();
+        System.out.println("Password:");
+        password = console.nextLine();
+
+        try {
+            database.loadUser("customer", username, password);
+            System.out.println("Login complete");
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
+    }
 }

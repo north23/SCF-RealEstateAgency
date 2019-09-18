@@ -27,7 +27,7 @@ public class Database {
 //    }
 
     public void saveUser(User user) throws IOException {
-        PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("fake-people-db.txt")));
+        PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("customer.txt")));
 
         if (user != null) {
             pw.println(user.toString());
@@ -36,9 +36,9 @@ public class Database {
         pw.close();
     }
 
-    public User loadUser(String userType, String username) throws IOException, CorruptedFileException {
+    public User loadUser(String userType, String username, String password) throws IOException {
         String fileName;
-        
+
         if (userType.equals("customer")) {
             fileName = "customer.txt";
         } else {
@@ -51,32 +51,32 @@ public class Database {
 
         User user = null;
         while ((line = br.readLine()) != null) {
-
-            user = createUser(line, userType);
+            user = createUser(line, userType, username, password);
         }
-        if (br.readLine() == null) 
-			throw new CorruptedFileException("The file is empty. No User data was loaded.");
-		
+
         br.close();
         return user;
     }
 
-    private User createUser(String line, String userType) {
+    private User createUser(String line, String userType, String inputUsername, String inputPassword) {
         StringTokenizer inReader = new StringTokenizer(line, ",");
 
-        String firstname = inReader.nextToken();      
-        String lastname = inReader.nextToken();
-        String email = inReader.nextToken();       
-        String suburb = inReader.nextToken();
         String username = inReader.nextToken();
         String password = inReader.nextToken();
+        String firstName = inReader.nextToken();
+        String lastName = inReader.nextToken();
+        String email = inReader.nextToken();
+        String suburb = inReader.nextToken();
         String type = inReader.nextToken();
 
-        if (userType.equals("customer")) {
-        	String[] parts = {firstname,lastname,email,suburb,username,password};
-            return new Customer(parts,type);
-        } else {
-            return null;
+        if (username.equals(inputUsername) && password.equals(inputPassword)) {
+            if (userType.equals("customer")) {
+                String[] parts = {firstName, lastName, email, suburb, username, password};
+                return new Customer(parts, type);
+            } else {
+                return null;
+            }
         }
+        return null;
     }
 }
